@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/solar/bootstrap.min.css" integrity="sha384-NCwXci5f5ZqlDw+m7FwZSAwboa0svoPPylIW3Nf+GBDsyVum+yArYnaFLE9UDzLd" crossorigin="anonymous">
+        <title>{{ title if title else 'Pas de titre'}}</title>
+    </head>
+
+    <body>
+    	<header style="
+    		min-width: auto;
+    		background-color: #b58900;
+    		color: white;
+    		text-align: center;
+    		">
+			<h1 class="display-4">
+				<img src="static/logo2.png" width="100" height="100">
+				GrandPyBot raconte moi une histoire!
+			</h1>
+    	</header>
+    	
+    	<div class="jumbotron">
+    		<div class="form-group">
+			  <label class="col-form-label" for="inputDefault">Pose ta question à GrandPyBot.</label>
+			  <input type="text" class="form-control" placeholder="Ta question." id="inputDefault">
+			</div>
+    	</div>
+
+    	<footer >
+    		<div class="card text-white bg-secondary mb-3" style="max-width: auto;">
+			  <div class="card-header">Header</div>
+			  <div class="card-body">
+			    <h4 class="card-title">Success card title</h4>
+			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			  </div>
+			</div>
+    		
+    	</footer>
+		
+
+    	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    
+    </body>
+</html>
