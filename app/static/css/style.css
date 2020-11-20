@@ -1,0 +1,51 @@
+header
+{
+	min-width: auto;
+	background-color: #b58900;
+	color: white;
+	text-align: center;
+}
+
+footer
+{
+	display: flex;
+	background-color: #839496;
+	color: white;
+	position: absolute;
+	bottom: 0;
+	padding-top: 5px;
+	width: 100%;
+}
+
+#nom
+{
+	width: 100%;
+	text-align: center;
+}
+
+#reseaux
+{
+	width: 100%;
+	text-align: center;
+}
+
+#conteneur
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+
+#reseaux ul
+{
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+}
+
+#reseaux li
+{
+	margin-right: 15px;
+}
+
