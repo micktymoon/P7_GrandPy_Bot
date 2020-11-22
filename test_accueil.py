@@ -9,3 +9,4 @@ def test_accroche():
     tag = r_soup.h1
     print(tag.string)
     assert tag.string == "GrandPyBot raconte moi une histoire!"
+
