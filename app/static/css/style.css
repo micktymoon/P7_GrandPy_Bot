@@ -4,6 +4,17 @@ header
 	background-color: #b58900;
 	color: white;
 	text-align: center;
+	
+}
+
+#conteneur1
+{
+	display: flex;
+}
+
+#conteneur1 img
+{
+	margin-right: 15px;
 }
 
 footer
