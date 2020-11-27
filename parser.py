@@ -1,6 +1,46 @@
 #!/usr/bin/python3
 # -*-coding: utf8 -*-
 
+import googlemaps
+import re
+
+gmaps = googlemaps.Client(key='AIzaSyAYIr_H7RBFICU0eGWe7hrm6a4AuibiQjI')
+paris = gmaps.geocode("paris")
+print(paris[0]['geometry']['location'])
+
+quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms?"
+quest2 = "Salut Papy aurais-tu l'adresse de la Tour Eiffel?"
+
+
+def parser(question):
+    if "?" in question:
+        print("c'est une question!")
+        if "est ce que" in question:
+            if "l'adresse de" in question:
+                endroit = re.split("l'adresse de |\\?", question)
+                print(endroit)
+                adresse = gmaps.geocode(endroit[1])
+                location = adresse[0]['geometry']['location']
+                return location
+            else:
+                return False
+        elif "aurais-tu" in question:
+            if "l'adresse de" in question:
+                endroit = re.split("l'adresse de |\\?", question)
+                print(endroit)
+                adresse = gmaps.geocode(endroit[1])
+                location = adresse[0]['geometry']['location']
+                return location
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
+print(parser(quest))
+print(parser(quest2))
 stopword = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi", "ait", "allaient", "allo",
             "allons", "allô", "alors", "anterieur", "anterieure", "anterieures", "apres", "après", "as", "assez",
             "attendu", "au", "aucun", "aucune", "aujourd", "aujourd'hui", "aupres", "auquel", "aura", "auraient",
@@ -58,35 +98,3 @@ stopword = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "
             "vives", "vlan", "voici", "voilà", "vont", "vos", "votre", "vous", "vous-mêmes", "vu", "vé", "vôtre",
             "vôtres", "w", "x", "y", "z", "zut", "à", "â", "ça", "ès", "étaient", "étais", "était", "étant", "été",
             "être", "ô"]
-
-
-quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms?"
-quest2 = "Salut Papy aurais-tu l'adresse de Mamie?"
-
-
-def parser(question):
-    if "?" in question:
-        print("c'est une question!")
-        if "est ce que" in question:
-            print("la question est posée")
-            if "l'adresse de" in question:
-                print("il veut l'adresse")
-                adresse = "23 rue des moutons 75000 Paris"
-                return adresse
-
-        elif "aurais-tu" in question:
-            print("une autre question est posée")
-            if "l'adresse de" in question:
-                print("il veut aussi l'adresse")
-                adresse = "23 rue des moutons 75000 Paris"
-                return adresse
-            else:
-                print("")
-        else:
-            print("pas de question posée")
-    else:
-        print("ce n'est pas une question")
-
-
-parser(quest)
-parser(quest2)

@@ -2,3 +2,4 @@ Flask
 pytest
 requests
 beautifulsoup4
+googlemaps
