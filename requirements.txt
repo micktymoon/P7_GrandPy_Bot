@@ -3,3 +3,5 @@ pytest
 requests
 beautifulsoup4
 googlemaps
+Flask-Testing
+jsonify
