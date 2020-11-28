@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
-from flask_testing import LiveServerTestCase
+from flask_testing import LiveServerTestCase, TestCase
 from flask import Flask
 import urllib.request
 import urllib3
+from app.mon_app import *
 
 
 def test_accroche():
@@ -31,7 +32,8 @@ class MyTest(LiveServerTestCase):
         app = Flask(__name__)
         app.config['TESTING'] = True
         # Default port is 5000
-        app.config['LIVESERVER_PORT'] = 8943
+        # app.config['LIVESERVER_PORT'] = 8943
+        # POURQUOI QUAND J'ENLEVE LA LIGNE DU DESSUS ÇA MARCHE MAIS PAS QUAND JE LA MET????????
         # Default timeout is 5 seconds
         app.config['LIVESERVER_TIMEOUT'] = 10
         return app
@@ -42,15 +44,24 @@ class MyTest(LiveServerTestCase):
 
 
 
-# @app.route('/')
-# def some_jason():
-#     return jsonify(success=True)
-#
-#
-# class TestViews(TestCase):
-#     flask_app = self.create_app()
-#
-#     with flask_app.test_client() as test_client:
-#         response = test_client.get("")
-#         assert response.status_code == 200
-#         print(response.status_code)
+
+
+
+class TestViews(TestCase):
+
+    def create_app(self):
+        app = Flask(__name__)
+        app.config['TESTING'] = True
+        # Default port is 5000
+        # app.config['LIVESERVER_PORT'] = 8943
+        # POURQUOI QUAND J'ENLEVE LA LIGNE DU DESSUS ÇA MARCHE MAIS PAS QUAND JE LA MET????????
+        # Default timeout is 5 seconds
+        app.config['LIVESERVER_TIMEOUT'] = 10
+        return app
+
+    def test_2(self):
+        flask_app = self.create_app()
+
+        with flask_app.test_client() as test_client:
+            response = test_client.get("/")
+            self.assertEqual(response.status_code, 200)
