@@ -5,32 +5,41 @@ import googlemaps
 import re
 
 gmaps = googlemaps.Client(key='AIzaSyAYIr_H7RBFICU0eGWe7hrm6a4AuibiQjI')
-paris = gmaps.geocode("paris")
-print(paris[0]['geometry']['location'])
+# paris = gmaps.geocode("paris")
+# print(paris[0]['geometry']['location'])
 
-quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms?"
+quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms, pour mon devoir de Géographie?"
 quest2 = "Salut Papy aurais-tu l'adresse de la Tour Eiffel?"
 
 
 def parser(question):
     if "?" in question:
-        print("c'est une question!")
         if "est ce que" in question:
             if "l'adresse de" in question:
                 endroit = re.split("l'adresse de |\\?", question)
-                print(endroit)
-                adresse = gmaps.geocode(endroit[1])
-                location = adresse[0]['geometry']['location']
-                return location
+                if ", pour" in endroit[1]:
+                    nom_endroit = re.split(", pour", endroit[1])
+                    adresse = gmaps.geocode(nom_endroit[0])
+                    location = adresse[0]['geometry']['location']
+                    return location
+                else:
+                    adresse = gmaps.geocode(endroit[1])
+                    location = adresse[0]['geometry']['location']
+                    return location
             else:
                 return False
         elif "aurais-tu" in question:
             if "l'adresse de" in question:
                 endroit = re.split("l'adresse de |\\?", question)
-                print(endroit)
-                adresse = gmaps.geocode(endroit[1])
-                location = adresse[0]['geometry']['location']
-                return location
+                if ", pour" in endroit[1]:
+                    nom_endroit = re.split(", pour", endroit[1])
+                    adresse = gmaps.geocode(nom_endroit[0])
+                    location = adresse[0]['geometry']['location']
+                    return location
+                else:
+                    adresse = gmaps.geocode(endroit[1])
+                    location = adresse[0]['geometry']['location']
+                    return location
             else:
                 return False
         else:
