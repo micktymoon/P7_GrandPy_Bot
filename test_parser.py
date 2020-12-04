@@ -19,8 +19,5 @@ def test_pas_une_q2():
     assert response is False
 
 
-def test_pas_une_q():
-    quest = "Salut papy!"
-    response = parser(quest)
-    assert response is not False, "Ce n'est pas une question!"
+
 
