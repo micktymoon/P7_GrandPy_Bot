@@ -6,7 +6,7 @@ import re
 
 
 quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms"
-quest2 = "Salut Papy aurais-tu l'adresse de la Tour Eiffel?"
+quest2 = "Salut Papy aurais-tu l'adresse de la Tour Eiffel."
 
 
 def supp_stopword(texte):
@@ -71,7 +71,7 @@ def supp_stopword(texte):
                 "vives", "vlan", "voici", "voilà", "vont", "vos", "votre", "vous", "vous-mêmes", "vu", "vé", "vôtre",
                 "vôtres", "w", "x", "y", "z", "zut", "à", "â", "ça", "ès", "étaient", "étais", "était", "étant", "été",
                 "être", "ô"]
-    mots_texte = re.split(" |, |\\?", texte)
+    mots_texte = re.split(" |, |\\?|!|\\.", texte)
     for word in stopword:
         if word in mots_texte:
             mots_texte.remove(word)
@@ -82,9 +82,10 @@ def supp_stopword(texte):
 
 def parser(question):
     if "l'adresse de" in question:
-        endroit = re.split("l'adresse de |\\?", question)
+        endroit = re.split("l'adresse de ", question)
         lieu = supp_stopword(endroit[1])
-        return lieu
+        lieu_complet = ' '.join(lieu)
+        return lieu_complet
     else:
         return False
 
@@ -96,5 +97,13 @@ def recup_latlong(lieu):
     return location
 
 
-print(parser(quest))
-print(parser(quest2))
+# a = parser(quest)
+# print(recup_latlong(a))
+# print(recup_latlong("OpenClassRooms"))
+#
+# b = parser(quest2)
+# print(recup_latlong(b))
+# print(recup_latlong("Tour Eiffel"))
+
+
+# print(parser(quest2))

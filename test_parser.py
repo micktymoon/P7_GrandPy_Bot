@@ -13,11 +13,25 @@ def test_q_simple():
     assert response is not False
 
 
-def test_pas_une_q2():
+def test_pas_une_q():
     quest = "Salut papy!"
     response = parser(quest)
     assert response is False
 
 
+def test_pas_une_q2():
+    quest = "Donne moi l'adresse de la Tour Eiffel."
+    response = parser(quest)
+    assert response is not False
 
 
+def test_juste_adresse():
+    quest = "OpenClassrooms"
+    response = parser(quest)
+    assert response is False
+
+
+def test_juste_adresse2():
+    quest = "adresse de OpenClassrooms"
+    response = parser(quest)
+    assert response is False
