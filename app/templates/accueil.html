@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet"
-			  href="static/css/style.css">
+			  href="static/css/accueil.css">
         <link rel="stylesheet"
 			  href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/solar/bootstrap.min.css"
 			  integrity="sha384-NCwXci5f5ZqlDw+m7FwZSAwboa0svoPPylIW3Nf+GBDsyVum+yArYnaFLE9UDzLd"
@@ -28,7 +28,7 @@
 
 			<form id="newItemForm">
 				<label class="col-form-label" for="itemField">Pose ta question à GrandPyBot.</label>
-				<input type="text" class="form-control" placeholder="Ta question." id="itemField">
+				<input type="text" class="form-control" placeholder="Ta question." id="itemField" name="question">
 				<input type="submit" id="add" value="add" class="btn btn-primary"/>
 
 			</form>
@@ -62,7 +62,8 @@
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYIr_H7RBFICU0eGWe7hrm6a4AuibiQjI&callback=initMap&libraries=&v=weekly"
 				defer></script>
-		<script type="text/javascript" src="static/js/script.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/accueil.js"></script>
 
     </body>
 </html>

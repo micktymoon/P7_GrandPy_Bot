@@ -1,22 +1,27 @@
 $(function() {
     var $list, $newItemForm;
-    $list = $('ul');
+    $list = $('#ulForm');
     $newItemForm = $('#newItemForm');
 
     $newItemForm.on('submit', function(e) {
         e.preventDefault();
         var text = $('input:text').val();
+        var question = $('#itemField').val();
+		$.ajax({
+			url: '/Coord',
+			data: $('form').serialize(),
+			type: 'POST',
+			success: function(response){
+				console.log(response);
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
         $list.append('<li class="itemForm">'+ text + '</li>');
         $('input:text').val('');
     });
-
-
 });
-
-
-
-
-
 
 
 let map;
@@ -40,5 +45,23 @@ function initMap() {
     marker.addListener("click", () => {
     infowindow.open(map, marker);
     });
-
 }
+//
+//$(function(){
+//    var $newItemForm = $('#newItemForm');
+//	$newItemForm.on('submit',function(){
+//		var question = $('#itemField').val();
+//		$.ajax({
+//			url: '/Coord',
+//			data: $('form').serialize(),
+//			type: 'POST',
+//			success: function(response){
+//				console.log(response);
+//			},
+//			error: function(error){
+//				console.log(error);
+//			}
+//		});
+//	});
+//});
+
