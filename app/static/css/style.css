@@ -59,6 +59,28 @@ footer
 	margin-right: 15px;
 }
 
+#ulForm
+{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.itemForm
+{
+  background-color: #268bd2;
+  color: white;
+  font-size: 20px;
+  list-style-type: none;
+  width: auto;
+  margin: 0px auto;
+  border-radius: 3px;
+  border: 1px solid #000;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 #map
 {
     height: 400px;
