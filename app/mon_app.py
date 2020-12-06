@@ -18,8 +18,14 @@ def get_coords():
 @app.route('/Coord', methods=['POST'])
 def coord():
 	quest = request.form['question']
-	return json.dumps({'status': 'OK', 'question': quest})
+	a = "blabla"
+	return json.dumps({'status': 'OK', 'question': quest, 'test': a})
 
 
 if __name__ == '__main__':
 	app.run()
+
+# endroit = parser("Donne moi l'adresse de OpenClassRooms.")
+# print(endroit)
+# lat_long = recup_latlong(endroit)
+# print(lat_long)
