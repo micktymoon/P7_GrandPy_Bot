@@ -2,7 +2,6 @@ $(function() {
     var $list, $newItemForm;
     $list = $('#ulForm');
     $newItemForm = $('#newItemForm');
-
     $newItemForm.on('submit', function(e) {
         e.preventDefault();
         var text = $('input:text').val();
@@ -11,8 +10,9 @@ $(function() {
 			url: '/Coord',
 			data: $('form').serialize(),
 			type: 'POST',
+
 			success: function(response){
-				console.log(response);
+				initMap(response);
 			},
 			error: function(error){
 				console.log(error);
@@ -23,11 +23,11 @@ $(function() {
     });
 });
 
-
 let map;
-
-function initMap() {
-    var myLatLng = { lat: 48.8975156, lng: 2.3833993 };
+function initMap(myLatLng) {
+    if (myLatLng === undefined) {
+        return;
+    }
     map = new google.maps.Map(document.getElementById("map"), {
         center: myLatLng,
         zoom: 15,
@@ -45,7 +45,10 @@ function initMap() {
     marker.addListener("click", () => {
     infowindow.open(map, marker);
     });
-}
+};
+
+
+
 //
 //$(function(){
 //    var $newItemForm = $('#newItemForm');
