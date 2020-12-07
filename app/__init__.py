@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request, json
-from app.parser.parser import parser, recup_latlong
-
+from app.parser.parser import parser
+from app.maps.maps_api import recup_latlong
 app = Flask(__name__)
 
 # from app import routes
