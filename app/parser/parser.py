@@ -1,12 +1,6 @@
 #!/usr/bin/python3
 # -*-coding: utf8 -*-
-
-
 import re
-
-
-quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms"
-quest2 = "Salut Papy aurais-tu l'adresse de la Tour Eiffel."
 
 
 def supp_stepword(texte):
@@ -93,18 +87,3 @@ def parser(question):
         return lieu_complet
     else:
         return False
-
-
-
-
-
-# a = parser(quest)
-# print(recup_latlong(a))
-# print(recup_latlong("OpenClassRooms"))
-#
-# b = parser(quest2)
-# print(recup_latlong(b))
-# print(recup_latlong("Tour Eiffel"))
-
-
-# print(parser(quest2))

@@ -14,8 +14,9 @@ $(function() {
 			success: function(response){
 			    $('.map').attr('id', 'map');
 			    console.log(response)
-				initMap(response['location']);
-				$list.append('<li class="itemForm">'+ response['history'] + '</li>')
+				initMap(response['latlng']);
+				$list.append('<li class="itemForm"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
+				$list.append('<li class="itemForm"> Savais-tu que : '+ response['history'] + '</li>')
 			},
 			error: function(error){
 				console.log(error);

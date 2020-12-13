@@ -1,5 +1,4 @@
 import requests
-import re
 
 
 def get_pageid(latitude, longitude):
@@ -52,9 +51,7 @@ def get_history(page_id):
     for item in extract_data['query']['pages']:
         page_id2 = item
     data = extract_data['query']['pages'][page_id2]
-    sentence = re.split("== Historique ==\n", data['extract'])
-    history = re.split("\n\n\n", sentence[1])
-    return history[0]
+    return data['extract']
 
 
 
