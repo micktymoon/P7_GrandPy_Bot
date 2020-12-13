@@ -15,14 +15,14 @@ $(function() {
 			    $('.map').attr('id', 'map');
 			    console.log(response)
 				initMap(response['latlng']);
-				$list.append('<li class="itemForm"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
-				$list.append('<li class="itemForm"> Savais-tu que : '+ response['history'] + '</li>')
+				$list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
+				$list.append('<li class="itemForm" id="grandpy"> Savais-tu que : '+ response['history'] + '</li>')
 			},
 			error: function(error){
 				console.log(error);
 			}
 		});
-        $list.append('<li class="itemForm">'+ text + '</li>');
+        $list.append('<li class="itemForm" id="me">'+ text + '</li>');
         $('input:text').val('');
     });
 });

@@ -63,25 +63,41 @@ footer
     list-style-type: none;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 }
 
-.itemForm
+#me
 {
   background-color: #268bd2;
   color: white;
   font-size: 20px;
-  list-style-type: none;
-  width: auto;
-  margin: 0px auto;
+  width: 50%;
+  margin: 0px;
   border-radius: 3px;
   border: 1px solid #000;
   padding: 10px;
   margin-bottom: 10px;
+  float: right;
+  align-self: flex-end;
+}
+
+#grandpy
+{
+  background-color: #2aa198;
+  color: white;
+  font-size: 20px;
+  width: 50%;
+  margin: 0px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  padding: 10px;
+  margin-bottom: 10px;
+  align-self: flex-start;
 }
 
 #map
 {
     height: 400px;
-    width: 500px;
+    width: 70%;
+    margin: auto;
 }
+
