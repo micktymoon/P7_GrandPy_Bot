@@ -21,7 +21,6 @@ footer
 	display: flex;
 	background-color: #839496;
 	color: white;
-	position: absolute;
 	bottom: 0;
 	padding-top: 5px;
 	width: 100%;
@@ -84,4 +83,5 @@ footer
 #map
 {
     height: 400px;
+    width: 500px;
 }
