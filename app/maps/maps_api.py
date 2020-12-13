@@ -8,4 +8,3 @@ def recup_latlong(lieu):
     location = adresse[0]['geometry']['location']
     return location
 
-print(recup_latlong('OpenClassrooms'))
