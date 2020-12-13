@@ -21,21 +21,19 @@
     		</div>
     	</header>
     	
-    	<div class="jumbotron">
+    	<div class="jumbotron" id="message">
 			<ul id="ulForm">
 				<li class="itemForm">question</li>
 			</ul>
-
-			<form id="newItemForm">
-				<label class="col-form-label" for="itemField">Pose ta question à GrandPyBot.</label>
-				<input type="text" class="form-control" placeholder="Ta question." id="itemField" name="question">
-				<input type="submit" id="add" value="add" class="btn btn-primary"/>
-
-			</form>
-
-				<div id="map"></div>
-
+			<div class="map"></div>
     	</div>
+		<form id="newItemForm">
+			<label class="col-form-label" for="itemField">Pose ta question à GrandPyBot.</label>
+			<input type="text" class="form-control" placeholder="Ta question." id="itemField" name="question">
+			<input type="submit" id="add" value="add" class="btn btn-primary"/>
+
+		</form>
+
 
     	<footer>
     		<div id="conteneur" class="row">
