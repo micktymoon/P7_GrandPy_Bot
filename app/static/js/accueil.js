@@ -12,7 +12,10 @@ $(function() {
 			type: 'POST',
 
 			success: function(response){
-				initMap(response);
+			    $('.map').attr('id', 'map');
+			    console.log(response)
+				initMap(response['location']);
+				$list.append('<li class="itemForm">'+ response['history'] + '</li>')
 			},
 			error: function(error){
 				console.log(error);

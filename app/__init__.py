@@ -2,7 +2,8 @@ from flask import Flask
 from flask import render_template, request
 from app.parser.parser import parser
 from app.maps.maps_api import recup_latlong
-
+from app.wikipedia.wiki_api import get_pageid, get_history
+import json
 app = Flask(__name__)
 
 
@@ -21,6 +22,9 @@ def coord():
     quest = request.form['question']
     lieu = parser(quest)
     lat_lng = recup_latlong(lieu)
-    return lat_lng
-
+    lat = json.dumps(lat_lng['lat'])
+    lng = json.dumps(lat_lng['lng'])
+    page_id = get_pageid(lat, lng)
+    history = get_history(page_id)
+    return {'location': lat_lng, 'history': history}
 
