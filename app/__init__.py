@@ -1,10 +1,9 @@
 from flask import Flask
-from flask import render_template, request, json
+from flask import render_template, request
 from app.parser.parser import parser
 from app.maps.maps_api import recup_latlong
-app = Flask(__name__)
 
-# from app import routes
+app = Flask(__name__)
 
 
 @app.route('/accueil')

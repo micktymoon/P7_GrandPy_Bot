@@ -9,7 +9,12 @@ quest = "Bonjour GrandPyBot est ce que tu aurais l'adresse de OpenClassrooms"
 quest2 = "Salut Papy aurais-tu l'adresse de la Tour Eiffel."
 
 
-def supp_stopword(texte):
+def supp_stepword(texte):
+    """
+
+    @param texte:
+    @return:
+    """
     stopword = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi", "ait", "allaient", "allo",
                 "allons", "allô", "alors", "anterieur", "anterieure", "anterieures", "apres", "après", "as", "assez",
                 "attendu", "au", "aucun", "aucune", "aujourd", "aujourd'hui", "aupres", "auquel", "aura", "auraient",
@@ -83,7 +88,7 @@ def supp_stopword(texte):
 def parser(question):
     if "l'adresse de" in question:
         endroit = re.split("l'adresse de ", question)
-        lieu = supp_stopword(endroit[1])
+        lieu = supp_stepword(endroit[1])
         lieu_complet = ' '.join(lieu)
         return lieu_complet
     else:

@@ -1,11 +1,11 @@
 #/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-# from flask import render_template, request, json
+# from flask import Flask, render_template, request, json
 # from app.parser.parser import parser, recup_latlong
 # from app import app
 #
-#
+# app = Flask(__name__)
 #
 #
 # @app.route('/accueil')
