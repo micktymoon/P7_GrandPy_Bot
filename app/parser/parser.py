@@ -2,6 +2,11 @@
 # -*-coding: utf8 -*-
 import re
 
+quest = "Salut grandpy! Comment s'est passé ta soirée avec Grandma hier soir? Au fait, pendant que j'y pense, " \
+        "pourrais-tu m'indiquer où se trouve le musée d'art et d'histoire de Fribourg, s'il te plaît?"
+quest2 = "Bonsoir Grandpy, j'espère que tu as passé une belle semaine. Est-ce que tu pourrais m'indiquer " \
+         "l'adresse de la tour eiffel? Merci d'avance et salutations à Mamie."
+quest3 = "donne moi l'adresse de OpenClassrooms"
 
 def supp_stepword(texte):
     """
@@ -81,9 +86,18 @@ def supp_stepword(texte):
 
 def parser(question):
     if "l'adresse de" in question:
-        endroit = re.split("l'adresse de ", question)
-        lieu = supp_stepword(endroit[1])
-        lieu_complet = ' '.join(lieu)
-        return lieu_complet
+        list_part_sentence = re.split("l'adresse de ", question)
+        s_contain_place = re.split(", |\\?|!|\\.", list_part_sentence[1])
+        list_word_place = supp_stepword(s_contain_place[0])
+        place = ' '.join(list_word_place)
+        return place
+    elif "où se trouve" in question:
+        list_part_sentence = re.split("où se trouve ", question)
+        s_contain_place = re.split(", |\\?|!|\\.", list_part_sentence[1])
+        list_word_place = supp_stepword(s_contain_place[0])
+        place = ' '.join(list_word_place)
+        return place
     else:
         return False
+
+print(parser(quest2))
