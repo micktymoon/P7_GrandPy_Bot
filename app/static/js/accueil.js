@@ -14,7 +14,7 @@ $(function() {
 			success: function(response){
 			    $('.map').attr('id', 'map');
 			    console.log(response)
-				initMap(response['latlng']);
+				initMap(response['latlng'], response['address']);
 				$list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
 				$list.append('<li class="itemForm" id="grandpy"> Savais-tu que : '+ response['history'] + '</li>')
 			},
@@ -28,7 +28,7 @@ $(function() {
 });
 
 let map;
-function initMap(myLatLng) {
+function initMap(myLatLng, address) {
     if (myLatLng === undefined) {
         return;
     }
@@ -36,7 +36,7 @@ function initMap(myLatLng) {
         center: myLatLng,
         zoom: 15,
     });
-    const contentString = "OpenClassrooms!"
+    const contentString = address
 
     const infowindow = new google.maps.InfoWindow({
     content: contentString,
@@ -44,7 +44,6 @@ function initMap(myLatLng) {
     const marker = new google.maps.Marker({
     position: myLatLng,
     map,
-    title: "hello world",
     });
     marker.addListener("click", () => {
     infowindow.open(map, marker);
