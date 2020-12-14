@@ -2,19 +2,18 @@
 # -*-coding: utf8 -*-
 import re
 
-quest = "Salut grandpy! Comment s'est passé ta soirée avec Grandma hier soir? Au fait, pendant que j'y pense, " \
-        "pourrais-tu m'indiquer où se trouve le musée d'art et d'histoire de Fribourg, s'il te plaît?"
-quest2 = "Bonsoir Grandpy, j'espère que tu as passé une belle semaine. Est-ce que tu pourrais m'indiquer " \
-         "l'adresse de la tour eiffel? Merci d'avance et salutations à Mamie."
-quest3 = "donne moi l'adresse de OpenClassrooms"
 
-def supp_stepword(texte):
-    """
+def remove_stepword(text):
+    """ Returns the list of words without the stepwords.
 
-    @param texte:
-    @return:
+    Remove stepwords from text and return list of remaining words.
+
+    :param text: The text from which we want to remove the stepwords.
+    :type text: str
+    :return: The list of words without the stepwords.
+    :rtype: list
     """
-    stopword = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi", "ait", "allaient", "allo",
+    stepword = ["a", "abord", "absolument", "afin", "ah", "ai", "aie", "ailleurs", "ainsi", "ait", "allaient", "allo",
                 "allons", "allô", "alors", "anterieur", "anterieure", "anterieures", "apres", "après", "as", "assez",
                 "attendu", "au", "aucun", "aucune", "aujourd", "aujourd'hui", "aupres", "auquel", "aura", "auraient",
                 "aurait", "auront", "aussi", "autre", "autrefois", "autrement", "autres", "autrui", "aux", "auxquelles",
@@ -75,29 +74,37 @@ def supp_stepword(texte):
                 "vives", "vlan", "voici", "voilà", "vont", "vos", "votre", "vous", "vous-mêmes", "vu", "vé", "vôtre",
                 "vôtres", "w", "x", "y", "z", "zut", "à", "â", "ça", "ès", "étaient", "étais", "était", "étant", "été",
                 "être", "ô"]
-    mots_texte = re.split(" |, |\\?|!|\\.", texte)
-    for word in stopword:
-        if word in mots_texte:
-            mots_texte.remove(word)
+    list_text_words = re.split(" |, |\\?|!|\\.", text)
+    for word in stepword:
+        if word in list_text_words:
+            list_text_words.remove(word)
         else:
             pass
-    return mots_texte
+    return list_text_words
 
 
-def parser(question):
-    if "l'adresse de" in question:
-        list_part_sentence = re.split("l'adresse de ", question)
+def parser(sentence):
+    """ Returns the place contained in a sentence.
+
+    Find the place in a sentence by just getting the part of the sentence containing the place.
+    Then remove the stepword and return the location.
+
+    :param sentence: The sentence containing the place.
+    :type sentence: str
+    :return: The place we are looking for in the sentence.
+    :rtype: str
+    """
+    if "l'adresse de" in sentence:
+        list_part_sentence = re.split("l'adresse de ", sentence)
         s_contain_place = re.split(", |\\?|!|\\.", list_part_sentence[1])
-        list_word_place = supp_stepword(s_contain_place[0])
+        list_word_place = remove_stepword(s_contain_place[0])
         place = ' '.join(list_word_place)
         return place
-    elif "où se trouve" in question:
-        list_part_sentence = re.split("où se trouve ", question)
+    elif "où se trouve" in sentence:
+        list_part_sentence = re.split("où se trouve ", sentence)
         s_contain_place = re.split(", |\\?|!|\\.", list_part_sentence[1])
-        list_word_place = supp_stepword(s_contain_place[0])
+        list_word_place = remove_stepword(s_contain_place[0])
         place = ' '.join(list_word_place)
         return place
     else:
         return False
-
-print(parser(quest2))
