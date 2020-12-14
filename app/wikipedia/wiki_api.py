@@ -2,7 +2,7 @@ import requests
 
 
 def get_pageid(latitude, longitude):
-    """ Return the ID of a Wikipedia page.
+    """ Returns the ID of a Wikipedia page.
 
     Get the ID of the Wikipedia page of a place given by its latitude and longitude.
 
@@ -28,7 +28,7 @@ def get_pageid(latitude, longitude):
 
 
 def get_history(page_id):
-    """ Return the historical part of the information of a Wikipedia page.
+    """ Returns the historical part of the information of a Wikipedia page.
 
     Get the historical part of the information of a Wikipedia page using its ID.
 

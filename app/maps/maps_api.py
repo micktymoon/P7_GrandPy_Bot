@@ -2,7 +2,7 @@ import requests
 
 
 def get_location(place):
-    """ Return the location and address of a place.
+    """ Returns the location and address of a place.
 
     Get the
 
