@@ -3,7 +3,7 @@ from flask_testing import TestCase
 from app.routes import app
 
 
-def test_accroche2():
+def test_catchphrase_presence():
     with app.test_client() as test_client:
         response = test_client.get("/accueil")
         result = response.data.decode("utf-8")
@@ -12,14 +12,7 @@ def test_accroche2():
     assert tag.string == "GrandPyBot raconte moi une histoire!"
 
 
-class TestViews(TestCase):
-
-    def create_app(self):
-        return app
-
-    def test_2(self):
-        flask_app = self.create_app()
-
-        with flask_app.test_client() as test_client:
-            response = test_client.get("/accueil")
-            self.assertEqual(response.status_code, 200)
+def test_2():
+    with app.test_client() as test_client:
+        response = test_client.get("/accueil")
+        assert response.status_code == 200

@@ -7,9 +7,9 @@ def get_pageid(latitude, longitude):
     Get the ID of the Wikipedia page of a place given by its latitude and longitude.
 
     :param latitude: The latitude of the place.
-    :type latitude: int
+    :type latitude: float
     :param longitude: The longitude of the place.
-    :type longitude: int
+    :type longitude: float
     :return: The ID of the Wikipedia page.
     :rtype: int
     """
@@ -23,6 +23,7 @@ def get_pageid(latitude, longitude):
                   'gscoord': f"{latitude}|{longitude}"}
     response_geo = requests.get(url=url_api, params=params_geo)
     geosearch_data = response_geo.json()
+    print(geosearch_data)
     page_id = geosearch_data['query']['geosearch'][0]['pageid']
     return page_id
 
@@ -52,9 +53,6 @@ def get_history(page_id):
         page_id2 = item
     data = extract_data['query']['pages'][page_id2]
     return data['extract']
-
-
-
 
 
 

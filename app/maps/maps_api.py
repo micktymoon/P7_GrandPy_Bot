@@ -18,4 +18,3 @@ def get_location(place):
     address = response_json['results'][0]['formatted_address']
     location = response_json['results'][0]['geometry']['location']
     return {'location': location, 'address': address}
-
