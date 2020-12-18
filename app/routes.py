@@ -16,11 +16,6 @@ def accueil():
     return render_template('accueil.html', title='Accueil')
 
 
-@app.route('/getCoords')
-def get_coords():
-    return render_template('coord.html')
-
-
 @app.route('/Coord', methods=['POST'])
 def coord():
     quest = request.form['question']
