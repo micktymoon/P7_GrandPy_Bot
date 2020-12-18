@@ -17,6 +17,7 @@ body
 	flex-direction: column;
 	min-height: 100vh;
 }
+
 header
 {
 	min-width: auto;
@@ -25,14 +26,14 @@ header
 	text-align: center;
 }
 
-#conteneur1
+#headerContainer
 {
 	display: flex;
 }
 
-#conteneur1 img
+#headerContainer img
 {
-	margin-right: 15px;
+	margin-right: 20px;
 }
 
 /* Page content */
@@ -45,26 +46,6 @@ header
 #chat
 {
     padding-bottom: 50px;
-}
-
-#conteneur
-{
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	width: 100%;
-}
-
-#reseaux ul
-{
-	list-style-type: none;
-	display: flex;
-	justify-content: center;
-}
-
-#reseaux li
-{
-	margin-right: 15px;
 }
 
 #ulForm
@@ -92,6 +73,14 @@ footer
 	width: 100%;
 }
 
+#container
+{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+
 #nom
 {
 	width: 100%;
@@ -102,6 +91,18 @@ footer
 {
 	width: 100%;
 	text-align: center;
+}
+
+#reseaux ul
+{
+	list-style-type: none;
+	display: flex;
+	justify-content: center;
+}
+
+#reseaux li
+{
+	margin-right: 15px;
 }
 
 /* Chat message style */
@@ -164,6 +165,7 @@ footer
     margin-left: -200px;
     margin-top: -100px;
 }
+
 #error h2, h4, p
 {
     text-align: center;

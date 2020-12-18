@@ -19,7 +19,7 @@ $(function() {
 				$list.append('<li class="itemForm" id="grandpy"> Savais-tu que : '+ response['history'] + '</li>')
 			},
 			error: function(error){
-				console.log(error);
+				$('.alert').attr('id', 'error');
 			}
 		});
         $list.append('<li class="itemForm" id="me">'+ text + '</li>');
@@ -49,25 +49,3 @@ function initMap(myLatLng, address) {
     infowindow.open(map, marker);
     });
 };
-
-
-
-//
-//$(function(){
-//    var $newItemForm = $('#newItemForm');
-//	$newItemForm.on('submit',function(){
-//		var question = $('#itemField').val();
-//		$.ajax({
-//			url: '/Coord',
-//			data: $('form').serialize(),
-//			type: 'POST',
-//			success: function(response){
-//				console.log(response);
-//			},
-//			error: function(error){
-//				console.log(error);
-//			}
-//		});
-//	});
-//});
-
