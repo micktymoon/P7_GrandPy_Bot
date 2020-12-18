@@ -1,3 +1,22 @@
+html
+{
+    height: 100%;
+}
+
+body
+{
+    height: 100%;
+    margin:0;
+    padding:0;
+}
+/* Page header. */
+#page
+{
+    margin: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
 header
 {
 	min-width: auto;
@@ -16,26 +35,16 @@ header
 	margin-right: 15px;
 }
 
-footer
+/* Page content */
+
+.content
 {
-	display: flex;
-	background-color: #839496;
-	color: white;
-	bottom: 0;
-	padding-top: 5px;
-	width: 100%;
+    flex: 1;
 }
 
-#nom
+#chat
 {
-	width: 100%;
-	text-align: center;
-}
-
-#reseaux
-{
-	width: 100%;
-	text-align: center;
+    padding-bottom: 50px;
 }
 
 #conteneur
@@ -64,6 +73,38 @@ footer
     display: flex;
     flex-direction: column;
 }
+
+/* Page footer */
+
+footer
+{
+
+    bottom: 0px;
+    margin-top: 50px;
+    height: 100px;
+}
+
+#footerContainer
+{
+	display: flex;
+	background-color: #839496;
+	color: white;
+	width: 100%;
+}
+
+#nom
+{
+	width: 100%;
+	text-align: center;
+}
+
+#reseaux
+{
+	width: 100%;
+	text-align: center;
+}
+
+/* Chat message style */
 
 #me
 {
@@ -94,6 +135,8 @@ footer
   align-self: flex-start;
 }
 
+/* Map style */
+
 #map
 {
     height: 400px;
@@ -101,3 +144,27 @@ footer
     margin: auto;
 }
 
+/* Server error */
+
+#noError
+{
+    display: none;
+}
+
+#error
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 200px;
+    margin-left: -200px;
+    margin-top: -100px;
+}
+#error h2, h4, p
+{
+    text-align: center;
+}
