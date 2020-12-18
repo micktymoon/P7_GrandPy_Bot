@@ -28,5 +28,3 @@ def coord():
     page_id = get_pageid(lat, lng)
     history = get_history(page_id)
     return {'place': lieu, 'latlng': lat_lng, 'history': history, 'address': address}
-
-
