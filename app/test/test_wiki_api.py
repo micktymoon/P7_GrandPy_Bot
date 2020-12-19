@@ -87,7 +87,7 @@ def test_get_pageid_returns_correct_page_id(monkeypatch):
     assert get_pageid(48.85837009999999, 2.2944813) == results
 
 
-def test_get_pageid_returns_false(monkeypatch):
+def test_get_pageid_returns_error(monkeypatch):
     results = "Invalid coordinate provided"
 
     class MockRequestsGet:
