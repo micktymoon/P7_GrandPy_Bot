@@ -94,8 +94,8 @@ def parser(sentence):
     :return: The place we are looking for in the sentence.
     :rtype: str
     """
-    if "l'adresse de" in sentence:
-        list_part_sentence = re.split("l'adresse de ", sentence)
+    if "l'adresse " in sentence:
+        list_part_sentence = re.split("l'adresse ", sentence)
         s_contain_place = re.split(", |\\?|!|\\.", list_part_sentence[1])
         list_word_place = remove_stepword(s_contain_place[0])
         place = ' '.join(list_word_place)
