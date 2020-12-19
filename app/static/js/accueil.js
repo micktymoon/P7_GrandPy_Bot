@@ -12,11 +12,16 @@ $(function() {
 			type: 'POST',
 
 			success: function(response){
-			    $('.map').attr('id', 'map');
-			    console.log(response)
-				initMap(response['latlng'], response['address']);
-				$list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
-				$list.append('<li class="itemForm" id="grandpy"> Savais-tu que : '+ response['history'] + '</li>')
+			    if (!('error' in response)) {
+			        $('.map').attr('id', 'map');
+                    console.log(response)
+                    initMap(response['latlng'], response['address']);
+                    $list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
+                    $list.append('<li class="itemForm" id="grandpy"> Savais-tu que : '+ response['history'] + '</li>');
+			    } else {
+			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin.'+ response['error'] + '</li>');
+			    };
+
 			},
 			error: function(error){
 				$('.alert').attr('id', 'error');
@@ -31,7 +36,7 @@ let map;
 function initMap(myLatLng, address) {
     if (myLatLng === undefined) {
         return;
-    }
+    };
     map = new google.maps.Map(document.getElementById("map"), {
         center: myLatLng,
         zoom: 15,
