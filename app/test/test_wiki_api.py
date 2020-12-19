@@ -1,4 +1,3 @@
-import requests
 from app.wikipedia.wiki_api import get_pageid, get_history
 
 
@@ -88,8 +87,8 @@ def test_get_pageid_returns_correct_page_id(monkeypatch):
     assert get_pageid(48.85837009999999, 2.2944813) == results
 
 
-def test_get_history_returns_correct_history(monkeypatch):
-    results = "La tour Eiffel  est une tour de fer puddlé de 324 mètres de hauteur (avec antennes) située à Paris, à l’extrémité nord-ouest du parc du Champ-de-Mars en bordure de la Seine dans le 7e arrondissement. Son adresse officielle est 5, avenue Anatole-France.\nConstruite en deux ans par Gustave Eiffel et ses collaborateurs pour l’Exposition universelle de Paris de 1889, et initialement nommée « tour de 300 mètres », elle est devenue le symbole de la capitale française et un site touristique de premier plan : il s’agit du troisième site culturel français payant le plus visité en 2015, avec 5,9 millions de visiteurs en 2016. Depuis son ouverture au public, elle a accueilli plus de 300 millions de visiteurs.\nD’une hauteur de 312 mètres à l’origine, la tour Eiffel est restée le monument le plus élevé du monde pendant quarante ans. Le second niveau du troisième étage, appelé parfois quatrième étage, situé à 279,11 mètres, est la plus haute plateforme d'observation accessible au public de l'Union européenne et la deuxième plus haute d'Europe, derrière la tour Ostankino à Moscou culminant à 337 mètres. La hauteur de la tour a été plusieurs fois augmentée par l’installation de nombreuses antennes.…"
+def test_get_pageid_returns_false(monkeypatch):
+    results = "Invalid coordinate provided"
 
     class MockRequestsGet:
         def __init__(self, url, params):
@@ -97,7 +96,115 @@ def test_get_history_returns_correct_history(monkeypatch):
             self.params = params
 
         def json(self):
-            return {'batchcomplete': '', 'query': {'pages': {'1359783': {'pageid': 1359783, 'ns': 0, 'title': 'Tour Eiffel', 'extract': "La tour Eiffel  est une tour de fer puddlé de 324 mètres de hauteur (avec antennes) située à Paris, à l’extrémité nord-ouest du parc du Champ-de-Mars en bordure de la Seine dans le 7e arrondissement. Son adresse officielle est 5, avenue Anatole-France.\nConstruite en deux ans par Gustave Eiffel et ses collaborateurs pour l’Exposition universelle de Paris de 1889, et initialement nommée « tour de 300 mètres », elle est devenue le symbole de la capitale française et un site touristique de premier plan : il s’agit du troisième site culturel français payant le plus visité en 2015, avec 5,9 millions de visiteurs en 2016. Depuis son ouverture au public, elle a accueilli plus de 300 millions de visiteurs.\nD’une hauteur de 312 mètres à l’origine, la tour Eiffel est restée le monument le plus élevé du monde pendant quarante ans. Le second niveau du troisième étage, appelé parfois quatrième étage, situé à 279,11 mètres, est la plus haute plateforme d'observation accessible au public de l'Union européenne et la deuxième plus haute d'Europe, derrière la tour Ostankino à Moscou culminant à 337 mètres. La hauteur de la tour a été plusieurs fois augmentée par l’installation de nombreuses antennes.…", 'contentmodel': 'wikitext', 'pagelanguage': 'fr', 'pagelanguagehtmlcode': 'fr', 'pagelanguagedir': 'ltr', 'touched': '2020-12-16T03:14:08Z', 'lastrevid': 177684275, 'length': 132316, 'fullurl': 'https://fr.wikipedia.org/wiki/Tour_Eiffel', 'editurl': 'https://fr.wikipedia.org/w/index.php?title=Tour_Eiffel&action=edit', 'canonicalurl': 'https://fr.wikipedia.org/wiki/Tour_Eiffel'}}}}
+            return {
+                'error': {
+                    'code': 'invalid-coord',
+                    'info': 'Invalid coordinate provided',
+                    '*': 'See https://fr.wikipedia.org/w/api.php for API '
+                         'usage. Subscribe to the mediawiki-api-announce '
+                         'mailing list at &lt;https://lists.wikimedia.org/'
+                         'mailman/listinfo/mediawiki-api-announce&gt; for '
+                         'notice of API deprecations and breaking changes.'},
+                'servedby': 'mw1377'}
+
+    monkeypatch.setattr('requests.get', MockRequestsGet)
+    assert get_pageid(100, 200) == results
+
+
+def test_get_history_returns_correct_history(monkeypatch):
+    results = "La tour Eiffel  est une tour de fer puddlé de 324 " \
+              "mètres de hauteur (avec antennes) située à Paris, " \
+              "à l’extrémité nord-ouest du parc du Champ-de-Mars " \
+              "en bordure de la Seine dans le 7e arrondissement. " \
+              "Son adresse officielle est 5, avenue " \
+              "Anatole-France.\nConstruite en deux ans par " \
+              "Gustave Eiffel et ses collaborateurs pour " \
+              "l’Exposition universelle de Paris de 1889, et " \
+              "initialement nommée « tour de 300 mètres », elle " \
+              "est devenue le symbole de la capitale française " \
+              "et un site touristique de premier plan : " \
+              "il s’agit du troisième site culturel français " \
+              "payant le plus visité en 2015, avec 5,9 millions " \
+              "de visiteurs en 2016. Depuis son ouverture au " \
+              "public, elle a accueilli plus de 300 millions de " \
+              "visiteurs.\nD’une hauteur de 312 mètres à " \
+              "l’origine, la tour Eiffel est restée le monument " \
+              "le plus élevé du monde pendant quarante ans. " \
+              "Le second niveau du troisième étage, appelé " \
+              "parfois quatrième étage, situé à 279,11 mètres, " \
+              "est la plus haute plateforme d'observation " \
+              "accessible au public de l'Union européenne et la " \
+              "deuxième plus haute d'Europe, derrière la tour " \
+              "Ostankino à Moscou culminant à 337 mètres. " \
+              "La hauteur de la tour a été plusieurs fois " \
+              "augmentée par l’installation de nombreuses " \
+              "antennes.…"
+
+    class MockRequestsGet:
+        def __init__(self, url, params):
+            self.url = url
+            self.params = params
+
+        def json(self):
+            return {'batchcomplete': '', 'query': {'pages': {'1359783': {
+                'pageid': 1359783,
+                'ns': 0,
+                'title': 'Tour Eiffel',
+                'extract': "La tour Eiffel  est une tour de fer puddlé de 324 "
+                           "mètres de hauteur (avec antennes) située à Paris, "
+                           "à l’extrémité nord-ouest du parc du Champ-de-Mars "
+                           "en bordure de la Seine dans le 7e arrondissement. "
+                           "Son adresse officielle est 5, avenue "
+                           "Anatole-France.\nConstruite en deux ans par "
+                           "Gustave Eiffel et ses collaborateurs pour "
+                           "l’Exposition universelle de Paris de 1889, et "
+                           "initialement nommée « tour de 300 mètres », elle "
+                           "est devenue le symbole de la capitale française "
+                           "et un site touristique de premier plan : "
+                           "il s’agit du troisième site culturel français "
+                           "payant le plus visité en 2015, avec 5,9 millions "
+                           "de visiteurs en 2016. Depuis son ouverture au "
+                           "public, elle a accueilli plus de 300 millions de "
+                           "visiteurs.\nD’une hauteur de 312 mètres à "
+                           "l’origine, la tour Eiffel est restée le monument "
+                           "le plus élevé du monde pendant quarante ans. "
+                           "Le second niveau du troisième étage, appelé "
+                           "parfois quatrième étage, situé à 279,11 mètres, "
+                           "est la plus haute plateforme d'observation "
+                           "accessible au public de l'Union européenne et la "
+                           "deuxième plus haute d'Europe, derrière la tour "
+                           "Ostankino à Moscou culminant à 337 mètres. "
+                           "La hauteur de la tour a été plusieurs fois "
+                           "augmentée par l’installation de nombreuses "
+                           "antennes.…",
+                'contentmodel': 'wikitext',
+                'pagelanguage': 'fr',
+                'pagelanguagehtmlcode': 'fr',
+                'pagelanguagedir': 'ltr',
+                'touched': '2020-12-16T03:14:08Z',
+                'lastrevid': 177684275,
+                'length': 132316,
+                'fullurl': 'https://fr.wikipedia.org/wiki/Tour_Eiffel',
+                'editurl': 'https://fr.wikipedia.org/w/index.php?title='
+                           'Tour_Eiffel&action=edit',
+                'canonicalurl': 'https://fr.wikipedia.org/wiki/Tour_Eiffel'}}}}
 
     monkeypatch.setattr('requests.get', MockRequestsGet)
     assert get_history(1359783) == results
+
+
+def test_get_history_returns_false(monkeypatch):
+    results = False
+
+    class MockRequestsGet:
+        def __init__(self, url, params):
+            self.url = url
+            self.params = params
+
+        def json(self):
+            return {'batchcomplete': '', 'query': {'pages': {'1': {
+                'pageid': 1,
+                'missing': ''}}}}
+
+    monkeypatch.setattr('requests.get', MockRequestsGet)
+    assert get_history(1) == results

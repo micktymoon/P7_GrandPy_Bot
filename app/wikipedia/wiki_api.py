@@ -23,9 +23,11 @@ def get_pageid(latitude, longitude):
                   'gscoord': f"{latitude}|{longitude}"}
     response_geo = requests.get(url=url_api, params=params_geo)
     geosearch_data = response_geo.json()
-    print(geosearch_data)
-    page_id = geosearch_data['query']['geosearch'][0]['pageid']
-    return page_id
+    if 'batchcomplete' in geosearch_data:
+        page_id = geosearch_data['query']['geosearch'][0]['pageid']
+        return page_id
+    else:
+        return geosearch_data['error']['info']
 
 
 def get_history(page_id):
@@ -48,12 +50,9 @@ def get_history(page_id):
                    "pageids": page_id}
     response_page = requests.get(url_api, params_page)
     extract_data = response_page.json()
-    page_id2 = None
-    for item in extract_data['query']['pages']:
-        page_id2 = item
-    data = extract_data['query']['pages'][page_id2]
-    return data['extract']
-
-
-
-
+    page_id_string = str(page_id)
+    if 'missing' not in extract_data['query']['pages'][page_id_string]:
+        data = extract_data['query']['pages'][page_id_string]['extract']
+        return data
+    else:
+        return False
