@@ -14,12 +14,23 @@ $(function() {
 			success: function(response){
 			    if (!('error' in response)) {
 			        $('.map').attr('id', 'map');
-                    console.log(response)
                     initMap(response['latlng'], response['address']);
-                    $list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>')
+                    $list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>');
                     $list.append('<li class="itemForm" id="grandpy"> Savais-tu que : '+ response['history'] + '</li>');
+			    } else if (response['error'] == "no history"){
+			        $('.map').attr('id', 'map');
+                    initMap(response['latlng'], response['address']);
+                    $list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>');
+			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, impossible de trouver un historique de ce lieu.</li>');
+			    } else if (response['error'] == "no pageid"){
+			        $('.map').attr('id', 'map');
+                    initMap(response['latlng'], response['address']);
+                    $list.append('<li class="itemForm" id="grandpy"> Bien sûr mon trésor, voici l\'adresse de ' + response['place'] + " : " + response['address'] + '</li>');
+			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, impossible de trouver une page Wikipedia de ce lieu.</li>');
+			    } else if (response['error'] == "no lat-lng"){
+			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, impossible de trouver ce lieu sur la carte.</li>');
 			    } else {
-			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin.'+ response['error'] + '</li>');
+			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, je ne comprends pas ta question.</li>');
 			    };
 
 			},

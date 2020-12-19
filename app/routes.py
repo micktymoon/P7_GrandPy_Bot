@@ -19,8 +19,8 @@ def accueil():
 @app.route('/Coord', methods=['POST'])
 def coord():
     quest = request.form['question']
-    lieu = parser(quest)
-    latlng_and_address = get_location(lieu)
+    place = parser(quest)
+    latlng_and_address = get_location(place)
     if latlng_and_address is not False:
         address = latlng_and_address['address']
         lat_lng = latlng_and_address['location']
@@ -31,24 +31,23 @@ def coord():
             history = get_history(page_id)
             if history is not False:
                 return {
-                    "place": lieu,
+                    "place": place,
                     "latlng": lat_lng,
                     "history": history,
                     "address": address}
             else:
                 return {
-                    "error": "Impossible de trouver un historique de ce lieu.",
-                    "place": lieu,
+                    "error": "no history",
+                    "place": place,
                     "latlng": lat_lng,
                     "address": address}
         else:
             return {
-                "error": "Impossible de trouver une page Wikipedia de ce "
-                         "lieu.",
-                "place": lieu,
+                "error": "no pageid",
+                "place": place,
                 "latlng": lat_lng,
                 "address": address}
     else:
         return {
-            "error": "Impossible de trouver la latitude et la longitude.",
-            "place": lieu}
+            "error": "no lat-lng",
+            "place": place}
