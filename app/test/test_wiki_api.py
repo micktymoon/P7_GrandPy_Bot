@@ -88,7 +88,7 @@ def test_get_pageid_returns_correct_page_id(monkeypatch):
 
 
 def test_get_pageid_returns_error(monkeypatch):
-    results = "Invalid coordinate provided"
+    results = False
 
     class MockRequestsGet:
         def __init__(self, url, params):
