@@ -8,6 +8,7 @@ def test_get_location_returns_correct_locations(monkeypatch):
         def __init__(self, url, params):
             self.url = url
             self.params = params
+            self.status_code = 200
 
         def json(self):
             return {
@@ -41,3 +42,24 @@ def test_get_location_returns_correct_locations(monkeypatch):
 
     monkeypatch.setattr('requests.get', MockRequestsGet)
     assert get_location('Paris') == results
+
+
+def test_get_location_returns_false(monkeypatch):
+    results = False
+
+    class MockRequestsGet:
+        def __init__(self, url, params):
+            self.url = url
+            self.params = params
+            self.status_code = 400
+
+        def json(self):
+            return {
+                'error_message': "Invalid request. Missing the 'address', "
+                                 "'components', 'latlng' or 'place_id' "
+                                 "parameter.",
+                'results': [],
+                'status': 'INVALID_REQUEST'}
+
+    monkeypatch.setattr('requests.get', MockRequestsGet)
+    assert get_location('') == results

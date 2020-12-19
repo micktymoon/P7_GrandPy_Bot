@@ -14,7 +14,10 @@ def get_location(place):
     params = {'address': place,
               'key': api_key}
     response = requests.get(api_url, params)
-    response_json = response.json()
-    address = response_json['results'][0]['formatted_address']
-    location = response_json['results'][0]['geometry']['location']
-    return {'location': location, 'address': address}
+    if response.status_code == 200:
+        response_json = response.json()
+        address = response_json['results'][0]['formatted_address']
+        location = response_json['results'][0]['geometry']['location']
+        return {'location': location, 'address': address}
+    else:
+        return False
