@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
 from app.routes import app
-import json
-
 
 
 def test_catchphrase_present():
@@ -25,7 +23,7 @@ def test_page_coord_status_code_is_ok():
         assert response.status_code == 200
 
 
-def test_mock_parser(monkeypatch):
+def test_mock_parser_correct(monkeypatch):
     results = b'{"address":"10 Quai de la Charente, 75019 Paris, France",' \
               b'"history":"Le quai de la Gironde est un quai situ\\u00e9 ' \
               b'le long du canal Saint-Denis, \\u00e0 Paris, dans le 19e ' \
@@ -48,8 +46,6 @@ def test_mock_parser(monkeypatch):
               b'Paris\\n\\n\\n=== Navigation ===\\n Portail de Paris   ' \
               b'Portail de la route\\u2026","latlng":' \
               b'{"lat":48.8975156,"lng":2.3833993},"place":"OpenClassrooms"}\n'
-    results_str = results.decode("utf-8")
-    results_json = json.dumps(results_str)
     client = app.test_client()
 
     def mock_parser():
@@ -58,12 +54,23 @@ def test_mock_parser(monkeypatch):
     monkeypatch.setattr('app.parser.parser.parser', mock_parser())
     response = client.post('/Coord', data={"question": "Donne moi l'adresse de OpenClassrooms"})
     data = response.get_data()
-    data_str = data.decode("utf-8")
-    data_json = json.dumps(data_str)
-    assert data_json == results_json
+    assert data == results
 
 
-def test_mock_get_location(monkeypatch):
+def test_mock_parser_false(monkeypatch):
+    results = b'{"error":"no place"}\n'
+    client = app.test_client()
+
+    def mock_parser():
+        return False
+
+    monkeypatch.setattr('app.parser.parser.parser', mock_parser())
+    response = client.post('/Coord', data={"question": "Donne moi OpenClassrooms"})
+    data = response.get_data()
+    assert data == results
+
+
+def test_mock_get_location_correct(monkeypatch):
     results = b'{"address":"10 Quai de la Charente, 75019 Paris, France",' \
               b'"history":"Le quai de la Gironde est un quai situ\\u00e9 ' \
               b'le long du canal Saint-Denis, \\u00e0 Paris, dans le 19e ' \
@@ -86,8 +93,6 @@ def test_mock_get_location(monkeypatch):
               b'Paris\\n\\n\\n=== Navigation ===\\n Portail de Paris   ' \
               b'Portail de la route\\u2026","latlng":' \
               b'{"lat":48.8975156,"lng":2.3833993},"place":"OpenClassrooms"}\n'
-    results_str = results.decode("utf-8")
-    results_json = json.dumps(results_str)
     client = app.test_client()
 
     def mock_get_location():
@@ -97,12 +102,23 @@ def test_mock_get_location(monkeypatch):
     monkeypatch.setattr('app.maps.maps_api.get_location', mock_get_location())
     response = client.post('/Coord', data={"question": "Donne moi l'adresse de OpenClassrooms"})
     data = response.get_data()
-    data_str = data.decode("utf-8")
-    data_json = json.dumps(data_str)
-    assert data_json == results_json
+    assert data == results
 
 
-def test_mock_get_pageid(monkeypatch):
+def test_mock_get_location_false(monkeypatch):
+    results = b'{"error":"no lat-lng","place":":"}\n'
+    client = app.test_client()
+
+    def mock_get_location():
+        return False
+
+    monkeypatch.setattr('app.maps.maps_api.get_location', mock_get_location())
+    response = client.post('/Coord', data={"question": "Donne moi l'adresse de :"})
+    data = response.get_data()
+    assert data == results
+
+
+def test_mock_get_pageid_correct(monkeypatch):
     results = b'{"address":"10 Quai de la Charente, 75019 Paris, France",' \
               b'"history":"Le quai de la Gironde est un quai situ\\u00e9 ' \
               b'le long du canal Saint-Denis, \\u00e0 Paris, dans le 19e ' \
@@ -125,8 +141,6 @@ def test_mock_get_pageid(monkeypatch):
               b'Paris\\n\\n\\n=== Navigation ===\\n Portail de Paris   ' \
               b'Portail de la route\\u2026","latlng":' \
               b'{"lat":48.8975156,"lng":2.3833993},"place":"OpenClassrooms"}\n'
-    results_str = results.decode("utf-8")
-    results_json = json.dumps(results_str)
     client = app.test_client()
 
     def mock_get_pageid():
@@ -135,12 +149,26 @@ def test_mock_get_pageid(monkeypatch):
     monkeypatch.setattr('app.wikipedia.wiki_api.get_pageid', mock_get_pageid())
     response = client.post('/Coord', data={"question": "Donne moi l'adresse de OpenClassrooms"})
     data = response.get_data()
-    data_str = data.decode("utf-8")
-    data_json = json.dumps(data_str)
-    assert data_json == results_json
+    assert data == results
 
 
-def test_mock_get_history(monkeypatch):
+def test_mock_get_pageid_false(monkeypatch):
+    results = b'{"address":"1189 Virginia Ave NE, Atlanta, GA 30306, USA",' \
+              b'"error":"no pageid",' \
+              b'"latlng":{"lat":33.77986,"lng":-84.349153},' \
+              b'"place":"blabla"}\n'
+    client = app.test_client()
+
+    def mock_get_pageid():
+        return False
+
+    monkeypatch.setattr('app.wikipedia.wiki_api.get_pageid', mock_get_pageid())
+    response = client.post('/Coord', data={"question": "Donne moi l'adresse de blabla"})
+    data = response.get_data()
+    assert data == results
+
+
+def test_mock_get_history_correct(monkeypatch):
     results = b'{"address":"10 Quai de la Charente, 75019 Paris, France",' \
               b'"history":"Le quai de la Gironde est un quai situ\\u00e9 ' \
               b'le long du canal Saint-Denis, \\u00e0 Paris, dans le 19e ' \
@@ -163,34 +191,34 @@ def test_mock_get_history(monkeypatch):
               b'Paris\\n\\n\\n=== Navigation ===\\n Portail de Paris   ' \
               b'Portail de la route\\u2026","latlng":' \
               b'{"lat":48.8975156,"lng":2.3833993},"place":"OpenClassrooms"}\n'
-    results_str = results.decode("utf-8")
-    results_json = json.dumps(results_str)
     client = app.test_client()
 
     def mock_get_history():
-        return "Le quai de la Gironde est un quai situé le long du canal " \
-               "Saint-Denis, à Paris, dans le 19e arrondissement." \
-               "\n\n\n== Situation et accès ==\nIl fait face au quai de la " \
-               "Charente, commence au quai de l'Oise et se termine avenue " \
-               "Corentin-Cariou.\nLa ligne \u2009 du tramway passe sur ce " \
-               "quai.\n\n\n== Origine du nom ==\nLe quai porte le nom que " \
-               "prend le fleuve, la Garonne, après avoir reçu la Dordogne " \
-               "au bec d'Ambès.\n\n\n== Historique ==\nCette voie de " \
-               "l'ancienne commune de La Villette a été classée dans la " \
-               "voirie de Paris par un décret du 23 mai 1863 et porte son " \
-               "nom actuel depuis un arrêté du 11 juin 1873.\n\n\n== " \
-               "Bâtiments remarquables et lieux de mémoire ==\nno 11 : " \
-               "emplacement des Entrepôts généraux.\n\n\n== Voir aussi " \
-               "==\n\n\n=== Articles connexes ===\nListe des voies du 19e " \
-               "arrondissement de Paris\nListe des voies de Paris\n\n\n=== " \
-               "Navigation ===\n Portail de Paris   Portail de la route…"
+        return False
 
     monkeypatch.setattr('app.wikipedia.wiki_api.get_history', mock_get_history())
     response = client.post('/Coord', data={"question": "Donne moi l'adresse de OpenClassrooms"})
     data = response.get_data()
-    data_str = data.decode("utf-8")
-    data_json = json.dumps(data_str)
-    assert data_json == results_json
+    assert data == results
+
+
+def test_mock_get_history_false(monkeypatch):
+    # Normally, it is impossible to have no history if a Wikipedia page exists.
+    # So the error returned is 'no pageid' because I cannot find an example to return the error 'no history'
+    results = b'{"address":"4 N Santa Fe Ave, Tulsa, OK 74127, USA",' \
+              b'"error":"no pageid",' \
+              b'"latlng":{"lat":36.1541709,"lng":-96.009076},' \
+              b'"place":"error"}\n'
+
+    client = app.test_client()
+
+    def mock_get_history():
+        return False
+
+    monkeypatch.setattr('app.wikipedia.wiki_api.get_history', mock_get_history())
+    response = client.post('/Coord', data={"question": "Donne moi l'adresse de error"})
+    data = response.get_data()
+    assert data == results
 
 
 def test_mock_parser_and_get_location_pageid_history(monkeypatch):
@@ -216,8 +244,6 @@ def test_mock_parser_and_get_location_pageid_history(monkeypatch):
               b'Paris\\n\\n\\n=== Navigation ===\\n Portail de Paris   ' \
               b'Portail de la route\\u2026","latlng":' \
               b'{"lat":48.8975156,"lng":2.3833993},"place":"OpenClassrooms"}\n'
-    results_str = results.decode("utf-8")
-    results_json = json.dumps(results_str)
     client = app.test_client()
 
     def mock_parser():
@@ -258,6 +284,6 @@ def test_mock_parser_and_get_location_pageid_history(monkeypatch):
 
     response = client.post('/Coord', data={"question": "Donne moi l'adresse de OpenClassrooms"})
     data = response.get_data()
-    data_str = data.decode("utf-8")
-    data_json = json.dumps(data_str)
-    assert data_json == results_json
+
+    assert data == results
+
