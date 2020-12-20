@@ -4,18 +4,21 @@ import requests
 def get_location(place):
     """ Returns the location and address of a place.
 
-    Get the
+    Get the address, latitude and longitude of a given place in Google Maps.
 
-    :param place:
-    :return:
+    :param place: The place we want to find.
+    :type place: str
+    :return: A dictionary containing the address, latitude and longitude of the searched place.
+    :rtype: dict
     """
     api_key = 'AIzaSyAYIr_H7RBFICU0eGWe7hrm6a4AuibiQjI'
     api_url = 'https://maps.googleapis.com/maps/api/geocode/json'
     params = {'address': place,
               'key': api_key}
     response = requests.get(api_url, params)
-    if response.status_code == 200:
-        response_json = response.json()
+    response_json = response.json()
+    if response_json['status'] != 'ZERO_RESULTS':
+
         address = response_json['results'][0]['formatted_address']
         location = response_json['results'][0]['geometry']['location']
         return {'location': location, 'address': address}
