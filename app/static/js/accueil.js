@@ -29,8 +29,10 @@ $(function() {
 			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, impossible de trouver une page Wikipedia de ce lieu.</li>');
 			    } else if (response['error'] == "no lat-lng"){
 			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, impossible de trouver ce lieu sur la carte.</li>');
-			    } else {
+			    } else if (response['error'] == "no place"){
 			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin, je ne comprends pas ta question.</li>');
+			    } else {
+			        $list.append('<li class="itemForm" id="grandpy"> Désolé mon poussin mais peux-tu parler français?</li>');
 			    };
 
 			},

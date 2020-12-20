@@ -20,34 +20,37 @@ def accueil():
 def coord():
     quest = request.form['question']
     place = parser(quest)
-    latlng_and_address = get_location(place)
-    if latlng_and_address is not False:
-        address = latlng_and_address['address']
-        lat_lng = latlng_and_address['location']
-        lat = json.dumps(lat_lng['lat'])
-        lng = json.dumps(lat_lng['lng'])
-        page_id = get_pageid(lat, lng)
-        if page_id is not False:
-            history = get_history(page_id)
-            if history is not False:
-                return {
-                    "place": place,
-                    "latlng": lat_lng,
-                    "history": history,
-                    "address": address}
+    if place is not False:
+        latlng_and_address = get_location(place)
+        if latlng_and_address is not False:
+            address = latlng_and_address['address']
+            lat_lng = latlng_and_address['location']
+            lat = json.dumps(lat_lng['lat'])
+            lng = json.dumps(lat_lng['lng'])
+            page_id = get_pageid(lat, lng)
+            if page_id is not False:
+                history = get_history(page_id)
+                if history is not False:
+                    return {
+                        "place": place,
+                        "latlng": lat_lng,
+                        "history": history,
+                        "address": address}
+                else:
+                    return {
+                        "error": "no history",
+                        "place": place,
+                        "latlng": lat_lng,
+                        "address": address}
             else:
                 return {
-                    "error": "no history",
+                    "error": "no pageid",
                     "place": place,
                     "latlng": lat_lng,
                     "address": address}
         else:
             return {
-                "error": "no pageid",
-                "place": place,
-                "latlng": lat_lng,
-                "address": address}
+                "error": "no lat-lng",
+                "place": place}
     else:
-        return {
-            "error": "no lat-lng",
-            "place": place}
+        return {"error": "no place"}
