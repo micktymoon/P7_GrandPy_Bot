@@ -23,7 +23,6 @@ def get_pageid(latitude, longitude):
                   'gscoord': f"{latitude}|{longitude}"}
     response_geo = requests.get(url=url_api, params=params_geo)
     geosearch_data = response_geo.json()
-    print(geosearch_data)
     if 'batchcomplete' in geosearch_data:
         if geosearch_data['query']['geosearch']:
             page_id = geosearch_data['query']['geosearch'][0]['pageid']
@@ -60,5 +59,3 @@ def get_history(page_id):
         return data
     else:
         return False
-
-print(get_pageid(33.77986, -84.349153))
