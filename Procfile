@@ -1,7 +1,4 @@
-web: gunicorn
-app:app
-
-init: FLASK_APP=run.py
+web: gunicorn --bind 0.0.0.0:$PORT run:app
 
 [requires]
 python_version=="3.7"
