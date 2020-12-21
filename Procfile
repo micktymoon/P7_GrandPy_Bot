@@ -1,1 +1,5 @@
-web: gunicorn app:app
+web: gunicorn
+app:app
+
+[requires]
+python_version=="3.7"
