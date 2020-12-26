@@ -83,7 +83,7 @@ def remove_stepword(text):
     return list_text_words
 
 
-def parser(sentence):
+def function_parser(sentence):
     """ Returns the place contained in a sentence.
 
     Find the place in a sentence by just getting the part of the sentence containing the place.

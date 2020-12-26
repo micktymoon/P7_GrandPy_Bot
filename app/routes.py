@@ -3,7 +3,7 @@
 
 from flask import Flask
 from flask import render_template, request
-from app.parser.parser import parser
+from app.parser.parser import function_parser
 from app.maps.maps_api import get_location
 from app.wikipedia.wiki_api import get_pageid, get_history
 import json
@@ -19,7 +19,7 @@ def accueil():
 @app.route('/Coord', methods=['POST'])
 def coord():
     quest = request.form['question']
-    place = parser(quest)
+    place = function_parser(quest)
     if place is not False:
         latlng_and_address = get_location(place)
         if latlng_and_address is not False:
