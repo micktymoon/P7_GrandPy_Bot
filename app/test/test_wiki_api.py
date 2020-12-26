@@ -2,7 +2,7 @@ from app.wikipedia.wiki_api import get_pageid, get_history
 
 
 def test_get_pageid_returns_correct_page_id(monkeypatch):
-    results = 1359783
+    results = 10
 
     class MockRequestsGet:
         def __init__(self, url, params):
@@ -14,7 +14,7 @@ def test_get_pageid_returns_correct_page_id(monkeypatch):
                 'batchcomplete': '',
                 'query': {
                     'geosearch': [
-                        {'pageid': 1359783,
+                        {'pageid': 10,
                          'ns': 0,
                          'title': 'Tour Eiffel',
                          'lat': 48.858296,
@@ -26,64 +26,9 @@ def test_get_pageid_returns_correct_page_id(monkeypatch):
                          'lat': 48.85825,
                          'lon': 2.2945,
                          'dist': 13.4,
-                         'primary': ''},
-                        {'pageid': 1869201,
-                         'ns': 0,
-                         'title': 'Exposition universelle de Paris de 1889',
-                         'lat': 48.8583,
-                         'lon': 2.29417,
-                         'dist': 24.1,
-                         'primary': ''},
-                        {'pageid': 5828872,
-                         'ns': 0,
-                         'title': 'Buste de Gustave Eiffel par Antoine Bourdelle',
-                         'lat': 48.85869444,
-                         'lon': 2.29444444,
-                         'dist': 36.2,
-                         'primary': ''},
-                        {'pageid': 2689115,
-                         'ns': 0, 'title': 'Rives de la Seine à Paris',
-                         'lat': 48.85889,
-                         'lon': 2.29333,
-                         'dist': 102.2,
-                         'primary': ''},
-                        {'pageid': 5422123,
-                         'ns': 0,
-                         'title': 'Avenue Gustave-Eiffel',
-                         'lat': 48.857388,
-                         'lon': 2.29463,
-                         'dist': 109.7,
-                         'primary': ''},
-                        {'pageid': 5422017,
-                         'ns': 0,
-                         'title': 'Allée Jean-Paulhan',
-                         'lat': 48.859347,
-                         'lon': 2.295585,
-                         'dist': 135.3,
-                         'primary': ''},
-                        {'pageid': 7488373,
-                         'ns': 0,
-                         'title': "Grande lunette de l'exposition universelle de Paris 1900",
-                         'lat': 48.8575,
-                         'lon': 2.29289,
-                         'dist': 151.4,
-                         'primary': ''},
-                        {'pageid': 4424460,
-                         'ns': 0,
-                         'title': 'Allée des Refuzniks',
-                         'lat': 48.857388,
-                         'lon': 2.293028,
-                         'dist': 152.4,
-                         'primary': ''},
-                        {'pageid': 5422039,
-                         'ns': 0,
-                         'title': 'Allée Paul-Deschanel',
-                         'lat': 48.859428,
-                         'lon': 2.296124,
-                         'dist': 168.2,
                          'primary': ''}]}}
 
-    monkeypatch.setattr('requests.get', MockRequestsGet)
+    monkeypatch.setattr('app.wikipedia.wiki_api.requests.get', MockRequestsGet)
     assert get_pageid(48.85837009999999, 2.2944813) == results
 
 
@@ -107,38 +52,12 @@ def test_get_pageid_returns_false(monkeypatch):
                          'notice of API deprecations and breaking changes.'},
                 'servedby': 'mw1377'}
 
-    monkeypatch.setattr('requests.get', MockRequestsGet)
-    assert get_pageid(100, 200) == results
+    monkeypatch.setattr('app.wikipedia.wiki_api.requests.get', MockRequestsGet)
+    assert get_pageid(48.85837009999999, 2.2944813) == results
 
 
 def test_get_history_returns_correct_history(monkeypatch):
-    results = "La tour Eiffel  est une tour de fer puddlé de 324 " \
-              "mètres de hauteur (avec antennes) située à Paris, " \
-              "à l’extrémité nord-ouest du parc du Champ-de-Mars " \
-              "en bordure de la Seine dans le 7e arrondissement. " \
-              "Son adresse officielle est 5, avenue " \
-              "Anatole-France.\nConstruite en deux ans par " \
-              "Gustave Eiffel et ses collaborateurs pour " \
-              "l’Exposition universelle de Paris de 1889, et " \
-              "initialement nommée « tour de 300 mètres », elle " \
-              "est devenue le symbole de la capitale française " \
-              "et un site touristique de premier plan : " \
-              "il s’agit du troisième site culturel français " \
-              "payant le plus visité en 2015, avec 5,9 millions " \
-              "de visiteurs en 2016. Depuis son ouverture au " \
-              "public, elle a accueilli plus de 300 millions de " \
-              "visiteurs.\nD’une hauteur de 312 mètres à " \
-              "l’origine, la tour Eiffel est restée le monument " \
-              "le plus élevé du monde pendant quarante ans. " \
-              "Le second niveau du troisième étage, appelé " \
-              "parfois quatrième étage, situé à 279,11 mètres, " \
-              "est la plus haute plateforme d'observation " \
-              "accessible au public de l'Union européenne et la " \
-              "deuxième plus haute d'Europe, derrière la tour " \
-              "Ostankino à Moscou culminant à 337 mètres. " \
-              "La hauteur de la tour a été plusieurs fois " \
-              "augmentée par l’installation de nombreuses " \
-              "antennes.…"
+    results = 'test historique'
 
     class MockRequestsGet:
         def __init__(self, url, params):
@@ -150,33 +69,7 @@ def test_get_history_returns_correct_history(monkeypatch):
                 'pageid': 1359783,
                 'ns': 0,
                 'title': 'Tour Eiffel',
-                'extract': "La tour Eiffel  est une tour de fer puddlé de 324 "
-                           "mètres de hauteur (avec antennes) située à Paris, "
-                           "à l’extrémité nord-ouest du parc du Champ-de-Mars "
-                           "en bordure de la Seine dans le 7e arrondissement. "
-                           "Son adresse officielle est 5, avenue "
-                           "Anatole-France.\nConstruite en deux ans par "
-                           "Gustave Eiffel et ses collaborateurs pour "
-                           "l’Exposition universelle de Paris de 1889, et "
-                           "initialement nommée « tour de 300 mètres », elle "
-                           "est devenue le symbole de la capitale française "
-                           "et un site touristique de premier plan : "
-                           "il s’agit du troisième site culturel français "
-                           "payant le plus visité en 2015, avec 5,9 millions "
-                           "de visiteurs en 2016. Depuis son ouverture au "
-                           "public, elle a accueilli plus de 300 millions de "
-                           "visiteurs.\nD’une hauteur de 312 mètres à "
-                           "l’origine, la tour Eiffel est restée le monument "
-                           "le plus élevé du monde pendant quarante ans. "
-                           "Le second niveau du troisième étage, appelé "
-                           "parfois quatrième étage, situé à 279,11 mètres, "
-                           "est la plus haute plateforme d'observation "
-                           "accessible au public de l'Union européenne et la "
-                           "deuxième plus haute d'Europe, derrière la tour "
-                           "Ostankino à Moscou culminant à 337 mètres. "
-                           "La hauteur de la tour a été plusieurs fois "
-                           "augmentée par l’installation de nombreuses "
-                           "antennes.…",
+                'extract': 'test historique',
                 'contentmodel': 'wikitext',
                 'pagelanguage': 'fr',
                 'pagelanguagehtmlcode': 'fr',
@@ -189,7 +82,7 @@ def test_get_history_returns_correct_history(monkeypatch):
                            'Tour_Eiffel&action=edit',
                 'canonicalurl': 'https://fr.wikipedia.org/wiki/Tour_Eiffel'}}}}
 
-    monkeypatch.setattr('requests.get', MockRequestsGet)
+    monkeypatch.setattr('app.wikipedia.wiki_api.requests.get', MockRequestsGet)
     assert get_history(1359783) == results
 
 
@@ -206,5 +99,5 @@ def test_get_history_returns_false(monkeypatch):
                 'pageid': 1,
                 'missing': ''}}}}
 
-    monkeypatch.setattr('requests.get', MockRequestsGet)
+    monkeypatch.setattr('app.wikipedia.wiki_api.requests.get', MockRequestsGet)
     assert get_history(1) == results
