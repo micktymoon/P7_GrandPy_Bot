@@ -51,7 +51,7 @@ def get_history(page_id):
                    "action": "query",
                    "prop": "extracts|info",
                    "inprop": "url",
-                   "exchars": 1200,
+                   "exsentences": 2,
                    "explaintext": True,
                    "pageids": page_id}
     response_page = requests.get(url_api, params_page)
