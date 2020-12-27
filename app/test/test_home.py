@@ -4,16 +4,16 @@ from app.routes import app
 
 def test_catchphrase_present():
     with app.test_client() as test_client:
-        response = test_client.get("/accueil")
+        response = test_client.get("/home")
         result = response.data.decode("utf-8")
     r_soup = BeautifulSoup(result, "html.parser")
     tag = r_soup.h1
     assert tag.string == "GrandPyBot raconte moi une histoire!"
 
 
-def test_page_accueil_status_code_is_ok():
+def test_page_home_status_code_is_ok():
     with app.test_client() as test_client:
-        response = test_client.get("/accueil")
+        response = test_client.get("/home")
         assert response.status_code == 200
 
 

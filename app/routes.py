@@ -1,4 +1,4 @@
-#/usr/bin/env python
+# /usr/bin/env python
 # -*- coding:utf-8 -*-
 
 from flask import Flask
@@ -11,9 +11,9 @@ import json
 app = Flask(__name__)
 
 
-@app.route('/accueil')
+@app.route('/home')
 def accueil():
-    return render_template('accueil.html', title='Accueil')
+    return render_template('home.html', title='Home')
 
 
 @app.route('/Coord', methods=['POST'])

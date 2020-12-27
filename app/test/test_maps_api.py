@@ -1,3 +1,6 @@
+# /usr/bin/env python
+# -*- coding:utf-8 -*-
+
 from app.maps.maps_api import get_location
 
 
