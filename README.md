@@ -32,9 +32,9 @@ Vous avez besoin de :
 ```
 ~$ heroku login
 ```
-Un message demandant d'entrer n'importe quelle lettre (sauf "q") apparait.
-Entrez n'importe quelle lettre.
-Un fenêtre internet s'ouvre.
+Un message demandant d'entrer n'importe quelle lettre (sauf "q") apparait.  
+Entrer n'importe quelle lettre.
+Un fenêtre internet s'ouvre.  
 Cliquer sur __"Log in"__.
 
 6. Créer un clone du dépôt P7_GrandPy_Bot suivant : 
