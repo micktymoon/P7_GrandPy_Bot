@@ -7,7 +7,8 @@ import requests
 def get_pageid(latitude, longitude):
     """ Returns the ID of a Wikipedia page.
 
-    Get the ID of the Wikipedia page of a place given by its latitude and longitude.
+    Get the ID of the Wikipedia page of a place given by its latitude and
+    longitude.
 
     :param latitude: The latitude of the place.
     :type latitude: float
@@ -37,9 +38,10 @@ def get_pageid(latitude, longitude):
 
 
 def get_history(page_id):
-    """ Returns the historical part of the information of a Wikipedia page.
+    """ Returns the historical part of the information from the Wikipedia page.
 
-    Get the historical part of the information of a Wikipedia page using its ID.
+    Get the historical part of the information from the Wikipedia page using
+    its ID.
 
     :param page_id: The ID of the Wikipedia page.
     :type page_id: int

@@ -1,4 +1,4 @@
-web: gunicorn --bind 0.0.0.0:$PORT run:app
+web: gunicorn run:app
 
 [requires]
 python_version=="3.7"

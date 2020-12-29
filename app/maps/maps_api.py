@@ -11,7 +11,8 @@ def get_location(place):
 
     :param place: The place we want to find.
     :type place: str
-    :return: A dictionary containing the address, latitude and longitude of the searched place.
+    :return: A dictionary containing the address, latitude and longitude of
+    the searched place.
     :rtype: dict
     """
     api_key = 'AIzaSyAYIr_H7RBFICU0eGWe7hrm6a4AuibiQjI'

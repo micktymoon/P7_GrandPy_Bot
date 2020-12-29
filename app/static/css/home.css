@@ -9,7 +9,9 @@ body
     margin:0;
     padding:0;
 }
+
 /* Page header. */
+
 #page
 {
     margin: 0;
@@ -73,7 +75,7 @@ footer
 	width: 100%;
 }
 
-#container
+#footerContainer2
 {
 	display: flex;
 	justify-content: space-around;
@@ -81,26 +83,26 @@ footer
 	width: 100%;
 }
 
-#nom
+#myName
 {
 	width: 100%;
 	text-align: center;
 }
 
-#reseaux
+#myNetworks
 {
 	width: 100%;
 	text-align: center;
 }
 
-#reseaux ul
+#myNetworks ul
 {
 	list-style-type: none;
 	display: flex;
 	justify-content: center;
 }
 
-#reseaux li
+#myNetworks li
 {
 	margin-right: 15px;
 }
@@ -145,7 +147,7 @@ footer
     margin: auto;
 }
 
-/* Server error */
+/* Error */
 
 #noError
 {

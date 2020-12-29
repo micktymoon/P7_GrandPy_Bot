@@ -145,5 +145,3 @@ def test_mock_all_function_and_returns_no_place(monkeypatch):
     response = client.post('/Coord', data={"question": "test"})
     data = response.get_data()
     assert data == results
-
-
