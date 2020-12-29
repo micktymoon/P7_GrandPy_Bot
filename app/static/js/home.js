@@ -42,8 +42,8 @@ $(function() {
 				$('.alert').attr('id', 'error');
 			}
 		});
-        $list.append('<li class="itemForm" id="me">'+ text + '</li>');
-        $('input:text').val('');
+        $list.append('<li class="itemForm" id="me">'+ question + '</li>');
+        $('#itemField').val('');
     });
 });
 
