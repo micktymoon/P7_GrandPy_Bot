@@ -68,7 +68,7 @@ Cliquer sur __"Log in"__.
 ## Démarrage
 
 Dans un navigateur :
-1. Entrer l'url de l'application heroku en y ajoutant "/home"
+1. Entrer l'url de l'application heroku en y ajoutant "/home"  
 ex : https://pacific-ocean-97327.herokuapp.com/home
 
 2. Vous pouvez maintenant échanger avec GrandPy Bot.
