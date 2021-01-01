@@ -4,7 +4,7 @@
 import requests
 
 
-def get_pageid(latitude, longitude):
+def get_page_id(latitude, longitude):
     """ Returns the ID of a Wikipedia page.
 
     Get the ID of the Wikipedia page of a place given by its latitude and
